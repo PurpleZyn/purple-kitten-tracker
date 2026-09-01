@@ -1,14 +1,13 @@
 {
+  "history_complete": true,
+  "history_method": "Full Item Receive 4103 rebuild until empty page",
+  "history_pages": 5,
   "initialized": true,
-  "last_checked": 1788276819,
-  "last_updated_display": "2026-09-01 15:33 TCT",
-  "public_history_complete": true,
-  "public_history_crawler_version": 2,
-  "public_history_cursor_to": 1745945096,
-  "public_history_note": "Complete: Torn returned zero older Item Receive logs",
-  "public_history_oldest_receive_log": 1745945097,
-  "public_history_pages_scanned": 5,
-  "public_history_rows_scanned": 418,
+  "item_receive_logs_scanned": 418,
+  "last_checked": 1788277326,
+  "last_updated_display": "2026-09-01 15:42 TCT",
+  "oldest_item_receive_timestamp": 1745945097,
   "tracked_kittens": 187498,
-  "tracked_sends": 234
+  "tracked_sends": 234,
+  "unique_contributors": 20
 }
