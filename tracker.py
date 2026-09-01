@@ -44,13 +44,13 @@ def load_config():
     return read_json(
         CONFIG_PATH,
         {
-            "title": "PURPLE'S KITTEN ENABLERS",
-            "subtitle": "All-time direct Kitten Plushies sent",
+            "title": "WHO KEEPS FEEDING THE PROBLEM?",
+            "subtitle": "Tracking the fine enablers sending kitten plushies to Purple.",
             "kitten_item_id": 215,
             "item_receive_log_id": 4103,
             "top_n": 10,
-            "width": 1000,
-            "height": 600,
+            "width": 1619,
+            "height": 971,
         },
     )
 
@@ -113,15 +113,6 @@ class TornClient:
 
 
 def normalize_logs(data):
-    """
-    Torn API v2 currently returns:
-      {"log": [{"id": "...", "timestamp": ..., "details": {...}, "data": {...}}, ...]}
-
-    Older/v1-shaped results used:
-      {"log": {"LOG_ID": {"log": 4103, "timestamp": ..., "data": {...}}, ...}}
-
-    Supporting both makes this tracker less brittle if Torn changes compatibility behavior.
-    """
     raw = data.get("log", []) if isinstance(data, dict) else []
     out = []
 
@@ -152,6 +143,7 @@ def normalize_logs(data):
                     "data": entry.get("data") or {},
                 }
             )
+
     return out
 
 
@@ -164,6 +156,7 @@ def quantity_for_item(items, wanted_id):
                 item_id = int(key)
             except (TypeError, ValueError):
                 continue
+
             if item_id != wanted_id:
                 continue
 
@@ -277,6 +270,7 @@ def add_page_events(page, events, names, config):
         events[event_id] = event
         if event.get("sender_name"):
             names[event["sender_id"]] = event["sender_name"]
+
         added_events += 1
         added_kittens += event["quantity"]
 
@@ -291,13 +285,6 @@ def next_link(page):
 
 
 def full_history_sync(client, events, names, config):
-    """
-    Initial import. Starts with the newest Item Receive logs and follows Torn's
-    own next-page links backward through available history.
-
-    A timestamp fallback is included for compatibility if a response does not
-    provide pagination links.
-    """
     total_events = 0
     total_kittens = 0
     seen_urls = set()
@@ -325,8 +312,6 @@ def full_history_sync(client, events, names, config):
             page = client.get_json(link)
             continue
 
-        # Compatibility fallback: if Torn gives a full page but no link,
-        # request the next older chunk by timestamp.
         if len(logs) >= 100 and timestamps:
             oldest = min(timestamps)
             fallback_key = f"to:{oldest - 1}"
@@ -345,7 +330,6 @@ def full_history_sync(client, events, names, config):
 
 def incremental_sync(client, events, names, state, config):
     last_checked = int(state.get("last_checked", 0) or 0)
-    # Re-read two minutes of overlap. Event IDs prevent double counting.
     from_ts = max(0, last_checked - 120) if last_checked else None
 
     page = client.logs_page(
@@ -434,7 +418,22 @@ def fit_text(draw, text, max_width, starting_size, bold=False, min_size=12):
     return font(min_size, bold=bold)
 
 
-def render_image(rows, state, config):
+def rounded_box(draw, box, radius, fill, outline=None, width=1):
+    draw.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
+
+
+def get_base_image_path():
+    candidates = [
+        ROOT / "leaderboard_mockup_base.png",
+        ROOT / "assets" / "leaderboard_mockup_base.png",
+    ]
+    for path in candidates:
+        if path.exists():
+            return path
+    return None
+
+
+def render_basic_fallback(rows, state, config):
     width = int(config.get("width", 1000))
     height = int(config.get("height", 600))
     top_n = int(config.get("top_n", 10))
@@ -451,21 +450,19 @@ def render_image(rows, state, config):
     img = Image.new("RGB", (width, height), bg)
     draw = ImageDraw.Draw(img)
 
-    # Subtle decorative kitten paw dots / texture
     for x, y, r in [
         (930, 55, 16), (958, 31, 9), (966, 70, 9), (905, 26, 9),
         (72, 535, 13), (45, 514, 7), (99, 513, 7), (63, 493, 7)
     ]:
         draw.ellipse((x-r, y-r, x+r, y+r), fill=panel_2)
 
-    title = str(config.get("title", "PURPLE'S KITTEN ENABLERS"))
+    title = str(config.get("title", "WHO KEEPS FEEDING THE PROBLEM?"))
     title_font = fit_text(draw, title, width - 100, 42, bold=True)
     draw.text((50, 32), title, font=title_font, fill=text)
 
-    subtitle = str(config.get("subtitle", "All-time direct Kitten Plushies sent"))
+    subtitle = str(config.get("subtitle", "Tracking the fine enablers sending kitten plushies to Purple."))
     draw.text((52, 82), subtitle, font=font(18), fill=muted)
 
-    # Main board
     board_top = 122
     board_bottom = height - 78
     draw.rounded_rectangle(
@@ -480,11 +477,10 @@ def render_image(rows, state, config):
     y = board_top + 18
 
     rank_font = font(18, bold=True)
-    name_font_base = 21
     qty_font = font(20, bold=True)
 
     if not shown:
-        message = "Waiting for the first Torn API sync…"
+        message = "Waiting for the first Torn API sync..."
         mf = fit_text(draw, message, width - 140, 28, bold=True)
         box = draw.textbbox((0, 0), message, font=mf)
         draw.text(
@@ -496,13 +492,11 @@ def render_image(rows, state, config):
     else:
         for idx, row in enumerate(shown, start=1):
             center_y = y + row_h // 2
-
             rank_color = gold if idx <= 3 else muted
             draw.text((56, center_y - 11), f"{idx:>2}.", font=rank_font, fill=rank_color)
 
-            display_name = row["name"]
-            name_font = fit_text(draw, display_name, 205, name_font_base, bold=True)
-            draw.text((100, center_y - 12), display_name, font=name_font, fill=text)
+            name_font = fit_text(draw, row["name"], 205, 21, bold=True)
+            draw.text((100, center_y - 12), row["name"], font=name_font, fill=text)
 
             bar_x1 = 315
             bar_x2 = width - 205
@@ -545,9 +539,111 @@ def render_image(rows, state, config):
     img.save(IMAGE_PATH, "PNG", optimize=True)
 
 
+def render_image(rows, state, config):
+    base_path = get_base_image_path()
+
+    if base_path is None:
+        render_basic_fallback(rows, state, config)
+        return
+
+    base = Image.open(base_path).convert("RGBA")
+    width, height = base.size
+
+    overlay = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    white = (245, 240, 250, 255)
+    soft_white = (232, 225, 242, 255)
+    muted = (190, 180, 205, 255)
+    gold = (236, 194, 86, 255)
+    silver = (205, 208, 220, 255)
+    bronze = (223, 147, 75, 255)
+    purple = (183, 117, 255, 255)
+    purple2 = (145, 89, 220, 255)
+    blackglass = (8, 5, 16, 225)
+
+    # Cover the old static leaderboard area so the live data can go on top.
+    board = (205, 326, 1392, 804)
+    rounded_box(draw, board, 28, fill=blackglass, outline=(176, 90, 255, 255), width=3)
+
+    shown = rows[: int(config.get("top_n", 10))]
+    max_qty = max((r["quantity"] for r in shown), default=1)
+
+    row_top = 360
+    row_gap = 59
+    name_x = 310
+    bar_x1 = 560
+    bar_x2 = 1190
+    qty_x = 1326
+
+    if not shown:
+        message = "No kitten sends tracked yet."
+        mf = fit_text(draw, message, 700, 34, bold=True)
+        box = draw.textbbox((0, 0), message, font=mf)
+        msg_x = 800 - ((box[2] - box[0]) // 2)
+        msg_y = 550 - ((box[3] - box[1]) // 2)
+        draw.text((msg_x, msg_y), message, font=mf, fill=soft_white)
+    else:
+        for i, row in enumerate(shown, start=1):
+            y = row_top + (i - 1) * row_gap
+
+            if i > 1:
+                draw.line((230, y - 16, 1370, y - 16), fill=(104, 67, 150, 110), width=1)
+
+            rank_color = gold if i == 1 else silver if i == 2 else bronze if i == 3 else soft_white
+            rank_font = font(27, bold=True)
+            draw.text((252, y - 7), f"{i}.", font=rank_font, fill=rank_color)
+
+            name_font = fit_text(draw, row["name"], 225, 29, bold=True, min_size=20)
+            draw.text((name_x, y - 8), row["name"], font=name_font, fill=white)
+
+            rounded_box(draw, (bar_x1, y, bar_x2, y + 26), 13, fill=(58, 34, 89, 240))
+            fill_w = max(12, int((row["quantity"] / max_qty) * (bar_x2 - bar_x1)))
+            rounded_box(draw, (bar_x1, y, bar_x1 + fill_w, y + 26), 13, fill=purple2)
+
+            # little marker at end of bar
+            rounded_box(draw, (bar_x1 + max(0, fill_w - 22), y - 2, bar_x1 + fill_w + 18, y + 28), 14, fill=purple)
+            draw.text((bar_x1 + fill_w - 8, y + 2), "K", font=font(18, bold=True), fill=(50, 26, 79, 255))
+
+            qty_text = f"{row['quantity']:,}"
+            qf = fit_text(draw, qty_text, 120, 27, bold=True, min_size=18)
+            bbox = draw.textbbox((0, 0), qty_text, font=qf)
+            draw.text((qty_x - (bbox[2] - bbox[0]), y - 8), qty_text, font=qf, fill=soft_white)
+
+    total = sum(r["quantity"] for r in rows)
+
+    total_box = (388, 814, 783, 943)
+    rounded_box(draw, total_box, 18, fill=(18, 10, 30, 235), outline=(180, 95, 255, 255), width=3)
+    draw.text((436, 833), "TOTAL SENT:", font=font(26, bold=True), fill=soft_white)
+
+    big_total = f"{total:,} KITTENS"
+    big_font = fit_text(draw, big_total, 330, 38, bold=True, min_size=22)
+    draw.text((421, 871), big_total, font=big_font, fill=white)
+    draw.text((437, 919), "Direct kitten plushies tracked from Torn logs", font=font(14), fill=muted)
+
+    note_box = (820, 823, 1110, 935)
+    rounded_box(draw, note_box, 10, fill=(10, 10, 14, 165), outline=(98, 78, 120, 170), width=1)
+    draw.text((860, 848), "THANK YOU", font=font(20, bold=True), fill=soft_white)
+    draw.text((846, 876), "YOU MAGNIFICENT", font=font(18, bold=True), fill=soft_white)
+    draw.text((872, 905), "ENABLERS.", font=font(20, bold=True), fill=soft_white)
+
+    update_box = (1120, 890, 1497, 950)
+    rounded_box(draw, update_box, 16, fill=(18, 10, 30, 235), outline=(180, 95, 255, 255), width=2)
+
+    updated = state.get("last_updated_display", "Not synced yet")
+    update_text = f"Updated: {updated}"
+    uf = fit_text(draw, update_text, 330, 22, bold=False, min_size=14)
+    draw.text((1146, 909), update_text, font=uf, fill=(214, 173, 255, 255))
+
+    composed = Image.alpha_composite(base, overlay).convert("RGB")
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    composed.save(IMAGE_PATH, "PNG", optimize=True)
+
+
 def render_index(rows, state, config):
     total = sum(r["quantity"] for r in rows)
     updated = state.get("last_updated_display", "Not synced yet")
+
     page = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -556,11 +652,21 @@ def render_index(rows, state, config):
 <title>{config.get("title", "Kitten Tracker")}</title>
 <style>
 body {{
-  margin: 0; padding: 32px; background: #140f1d; color: #f7f4fc;
-  font-family: system-ui, -apple-system, Segoe UI, sans-serif; text-align:center;
+  margin: 0;
+  padding: 32px;
+  background: #140f1d;
+  color: #f7f4fc;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  text-align: center;
 }}
-img {{ max-width:100%; height:auto; border-radius:16px; }}
-p {{ color:#b8b0c5; }}
+img {{
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+}}
+p {{
+  color: #b8b0c5;
+}}
 </style>
 </head>
 <body>
