@@ -1,0 +1,119 @@
+PURPLE'S KITTEN TRACKER — BEGINNER SETUP CHECKLIST
+
+You do NOT need to install Python, Git, GitHub Desktop, or a web server.
+Everything after extracting this ZIP happens in your web browser.
+
+1. CREATE A FREE GITHUB ACCOUNT
+   Go to https://github.com/
+   Create/sign in to a free personal account.
+
+2. CREATE A NEW PUBLIC REPOSITORY
+   On GitHub:
+   - Click the + button at the upper-right.
+   - Click "New repository".
+   - Repository name: purple-kitten-tracker
+   - Visibility: PUBLIC
+   - Do NOT add a README, .gitignore, or license.
+   - Click "Create repository".
+
+3. UPLOAD THIS PROJECT
+   - Extract this ZIP on your computer.
+   - Open the extracted "purple-kitten-tracker" folder.
+   - On your empty GitHub repository page, click "uploading an existing file"
+     (or Add file > Upload files).
+   - Drag the CONTENTS of the extracted folder into the upload box.
+     Make sure .github, data, docs, tracker.py, requirements.txt,
+     config.json, and README.md are included.
+   - Commit directly to the main branch.
+
+4. CREATE A TORN CUSTOM API KEY
+   In Torn:
+   - Open your API settings / Custom Key Builder.
+   - Create a key named: Kitten Tracker
+   - Give it access to USER > LOG.
+   - Restrict the log permission to Item Receive / log 4103 if Torn's
+     builder offers the log-type selector.
+   - Do not share this key with anyone.
+   - Copy the key.
+
+5. PUT THE API KEY INTO GITHUB SECRETS
+   In your GitHub repository:
+   - Click Settings.
+   - Left sidebar: Secrets and variables > Actions.
+   - Click "New repository secret".
+   - Name: TORN_API_KEY
+   - Secret: paste your Torn API key.
+   - Click "Add secret".
+
+   IMPORTANT: Do not paste the key into tracker.py, config.json, README,
+   Issues, commit messages, or anywhere else.
+
+6. ENABLE GITHUB PAGES
+   In your repository:
+   - Settings > Pages.
+   - Under "Build and deployment", set Source to "GitHub Actions".
+
+7. RUN THE FIRST HISTORICAL IMPORT
+   - Click the Actions tab at the top of the repository.
+   - Click "Update kitten leaderboard" on the left.
+   - Click "Run workflow".
+   - Leave branch as main.
+   - Click the green "Run workflow" button.
+
+   The FIRST run walks through all available Item Receive history.
+   Later runs only check the new time period.
+
+8. CHECK THAT IT WORKED
+   Open the completed workflow run.
+   You should see green check marks.
+
+   The log near "Pull Torn logs and rebuild image" will tell you:
+   - how many Kitten Plushie sends were found
+   - how many kittens were counted
+   - how many unique contributors were found
+
+9. GET YOUR PUBLIC IMAGE URL
+   Go to Settings > Pages.
+   GitHub will show the published site address, usually:
+
+   https://YOUR-GITHUB-USERNAME.github.io/purple-kitten-tracker/
+
+   Your direct image URL is:
+
+   https://YOUR-GITHUB-USERNAME.github.io/purple-kitten-tracker/kittens.png
+
+10. PUT IT ON YOUR TORN PROFILE
+    Use Torn's profile editor to insert that hosted image URL.
+    The URL NEVER changes. GitHub replaces the image behind that URL
+    every time the tracker runs.
+
+11. DAILY UPDATES
+    Nothing else needs to be open.
+    Your computer can be turned off.
+
+    GitHub Actions is scheduled for 00:07 TCT every day.
+    GitHub schedules are not guaranteed to begin at the exact second,
+    but it should run around that time.
+
+TROUBLESHOOTING
+
+A. "TORN_API_KEY is missing"
+   You skipped Step 5 or named the secret incorrectly.
+   It must be exactly: TORN_API_KEY
+
+B. Torn API error 16 / access too low
+   Edit/re-create the Torn custom key and ensure USER > LOG / Item Receive
+   access is included.
+
+C. Some player is displayed as "Player 1234567"
+   Open data/names.json in GitHub and replace that value with the correct
+   Torn username, then commit it. The next run will use that name.
+
+D. Image is not changing
+   Open Actions and check the most recent "Update kitten leaderboard" run.
+   Red X = open the failed step and read its error.
+   Green = check Settings > Pages for the deployment address.
+
+E. You accidentally exposed your Torn API key
+   Immediately revoke/delete that key in Torn and create a new one.
+   Then replace the GitHub Actions secret with the new key.
