@@ -739,92 +739,317 @@ p {{ color:#b8b0c5; }}
     INDEX_PATH.write_text(page, encoding="utf-8")
 
 
+def scan_every_item_receive_log(client, events, names, config):
+    """
+    Rebuild the public leaderboard from ALL available Item Receive (4103)
+    history every time the workflow runs.
+
+    IMPORTANT:
+    This does NOT stop when Torn returns fewer than 100 logs.
+    It only stops when Torn returns ZERO older Item Receive logs.
+    """
+
+    cursor_to = int(time.time())
+
+    page_number = 0
+    receive_logs_scanned = 0
+    kitten_sends_found = 0
+    kittens_found = 0
+    oldest_timestamp = 0
+
+    print("FULL HISTORY REBUILD: scanning Item Receive / 4103...")
+
+    while True:
+
+        page = client.logs_page(
+            config["item_receive_log_id"],
+            to_ts=cursor_to,
+            limit=100,
+        )
+
+        logs = normalize_logs(page)
+
+        # THIS is the only condition that means
+        # there are no older Item Receive logs.
+        if not logs:
+
+            print("Torn returned 0 older Item Receive logs.")
+            print("FULL ITEM RECEIVE HISTORY COMPLETE.")
+
+            break
+
+        page_number += 1
+        receive_logs_scanned += len(logs)
+
+        added_events, added_kittens, timestamps = add_page_events(
+            page,
+            events,
+            names,
+            config,
+        )
+
+        kitten_sends_found += added_events
+        kittens_found += added_kittens
+
+        if not timestamps:
+
+            raise RuntimeError(
+                "Torn returned Item Receive logs without timestamps. "
+                "Stopping instead of falsely marking history complete."
+            )
+
+        oldest_on_page = min(timestamps)
+
+        if not oldest_timestamp or oldest_on_page < oldest_timestamp:
+            oldest_timestamp = oldest_on_page
+
+        oldest_text = datetime.fromtimestamp(
+            oldest_on_page,
+            tz=timezone.utc,
+        ).strftime("%Y-%m-%d %H:%M:%S TCT")
+
+        print(
+            f"Page {page_number}: "
+            f"{len(logs)} Item Receive logs | "
+            f"{added_events} kitten sends | "
+            f"{added_kittens:,} kittens | "
+            f"oldest {oldest_text}"
+        )
+
+        # Torn's "to" timestamp is inclusive.
+        # Move one second BEFORE the oldest record
+        # from the page we just processed.
+        next_cursor = oldest_on_page - 1
+
+        if next_cursor >= cursor_to:
+
+            raise RuntimeError(
+                "History cursor failed to move backward. "
+                "Stopping to prevent an infinite loop."
+            )
+
+        cursor_to = next_cursor
+
+        # Just a safety valve.
+        # Your account should be nowhere near this.
+        if page_number >= 500:
+
+            raise RuntimeError(
+                "Stopped after 500 Item Receive pages "
+                "before Torn returned an empty page."
+            )
+
+    return {
+        "pages": page_number,
+        "receive_logs_scanned": receive_logs_scanned,
+        "kitten_sends_found": kitten_sends_found,
+        "kittens_found": kittens_found,
+        "oldest_timestamp": oldest_timestamp,
+    }
+
+
 def main():
-    api_key = os.environ.get("TORN_API_KEY", "").strip()
+
+    api_key = os.environ.get(
+        "TORN_API_KEY",
+        "",
+    ).strip()
+
     if not api_key:
+
         raise SystemExit(
-            "TORN_API_KEY is missing. Add it as a GitHub Actions repository secret."
+            "TORN_API_KEY is missing. "
+            "Add it as a GitHub Actions repository secret."
         )
 
     config = load_config()
-    events = read_json(EVENTS_PATH, {})
-    names = read_json(NAMES_PATH, {})
-    state = read_json(
-        STATE_PATH,
-        {
-            "initialized": False,
-            "last_checked": 0,
-            "last_updated_display": "Not synced yet",
-        },
+
+    # =====================================================
+    # VERY IMPORTANT CHANGE
+    # =====================================================
+    #
+    # We are intentionally NOT loading the old events.json.
+    #
+    # The old file contains the incomplete history that gave
+    # us the wrong leaderboard totals.
+    #
+    # Instead, EVERY run rebuilds the direct-receive history
+    # completely from Torn.
+    #
+    # Since Item Receive is only a few hundred records for you,
+    # this is cheap and far more reliable.
+    # =====================================================
+
+    events = {}
+
+    # Player names are okay to reuse.
+    names = read_json(
+        NAMES_PATH,
+        {},
     )
 
     client = TornClient(api_key)
+
     run_started = int(time.time())
 
-    # Always catch anything new first.
-    print("Checking new Item Receive logs...")
-    recent_events, recent_kittens = incremental_sync(
-        client, events, names, state, config
+    scan = scan_every_item_receive_log(
+        client,
+        events,
+        names,
+        config,
     )
 
-    # Then repair/continue the all-history 4103 backfill.
-    print("Checking complete direct-receive history...")
-    history_events, history_kittens = continue_direct_receive_history(
-        client, events, names, state, config
+    # Resolve any new player IDs into usernames.
+    resolve_missing_names(
+        client,
+        events,
+        names,
     )
 
-    resolve_missing_names(client, events, names)
-
-    state["initialized"] = True
-    state["last_checked"] = run_started
-    state["last_updated_display"] = datetime.now(timezone.utc).strftime(
-        "%Y-%m-%d %H:%M TCT"
-    )
-    state["tracked_sends"] = len(events)
-    state["tracked_kittens"] = sum(
-        int(e["quantity"]) for e in events.values()
+    rows = donor_totals(
+        events,
+        names,
     )
 
-    write_json(EVENTS_PATH, events)
-    write_json(NAMES_PATH, names)
-    write_json(STATE_PATH, state)
+    total_kittens = sum(
+        int(row["quantity"])
+        for row in rows
+    )
 
-    rows = donor_totals(events, names)
-    render_image(rows, state, config)
-    render_index(rows, state, config)
+    state = {
 
-    oldest = int(state.get("public_history_oldest_receive_log", 0) or 0)
-    oldest_text = (
-        datetime.fromtimestamp(oldest, tz=timezone.utc).strftime(
+        "initialized": True,
+
+        "last_checked": run_started,
+
+        "last_updated_display":
+            datetime.now(timezone.utc).strftime(
+                "%Y-%m-%d %H:%M TCT"
+            ),
+
+        "tracked_sends":
+            len(events),
+
+        "tracked_kittens":
+            total_kittens,
+
+        "unique_contributors":
+            len(rows),
+
+        "history_complete":
+            True,
+
+        "history_method":
+            "Full Item Receive 4103 rebuild until empty page",
+
+        "history_pages":
+            scan["pages"],
+
+        "item_receive_logs_scanned":
+            scan["receive_logs_scanned"],
+
+        "oldest_item_receive_timestamp":
+            scan["oldest_timestamp"],
+    }
+
+    # =====================================================
+    # REPLACE THE OLD INCOMPLETE CACHE
+    # =====================================================
+
+    write_json(
+        EVENTS_PATH,
+        events,
+    )
+
+    write_json(
+        NAMES_PATH,
+        names,
+    )
+
+    write_json(
+        STATE_PATH,
+        state,
+    )
+
+    # =====================================================
+    # BUILD THE SAME IMAGE YOU ALREADY HAVE
+    # =====================================================
+
+    render_image(
+        rows,
+        state,
+        config,
+    )
+
+    render_index(
+        rows,
+        state,
+        config,
+    )
+
+    # =====================================================
+    # PRINT RESULTS FOR US TO VERIFY
+    # =====================================================
+
+    print()
+
+    print(
+        "========== PUBLIC LEADERBOARD RESULTS =========="
+    )
+
+    print(
+        f"Item Receive pages scanned: "
+        f"{scan['pages']}"
+    )
+
+    print(
+        f"Item Receive logs scanned: "
+        f"{scan['receive_logs_scanned']:,}"
+    )
+
+    print(
+        f"Kitten sends found: "
+        f"{len(events):,}"
+    )
+
+    print(
+        f"Directly received kittens: "
+        f"{total_kittens:,}"
+    )
+
+    print(
+        f"Unique contributors: "
+        f"{len(rows):,}"
+    )
+
+    if scan["oldest_timestamp"]:
+
+        oldest_text = datetime.fromtimestamp(
+            scan["oldest_timestamp"],
+            tz=timezone.utc,
+        ).strftime(
             "%Y-%m-%d %H:%M:%S TCT"
         )
-        if oldest
-        else "N/A"
-    )
 
-    print()
-    print(f"New recent kitten sends: {recent_events}")
-    print(f"New recent kittens: {recent_kittens:,}")
-    print(f"New historical kitten sends found: {history_events}")
-    print(f"New historical kittens found: {history_kittens:,}")
-    print(f"All-time tracked kitten sends: {len(events)}")
-    print(f"All-time tracked kittens: {state['tracked_kittens']:,}")
-    print(f"Unique contributors: {len(rows)}")
-    print(
-        "Direct-receive history: "
-        + (
-            "COMPLETE"
-            if state.get("public_history_complete")
-            else "IN PROGRESS"
+        print(
+            f"Oldest Item Receive log scanned: "
+            f"{oldest_text}"
         )
-    )
-    print(f"Oldest Item Receive log scanned: {oldest_text}")
-    print(f"History note: {state.get('public_history_note', '')}")
 
     print()
+
     print("TOP CONTRIBUTORS")
-    for idx, row in enumerate(rows[:10], start=1):
-        print(f"{idx:>2}. {row['name']}: {row['quantity']:,}")
+
+    for index, row in enumerate(
+        rows[:10],
+        start=1,
+    ):
+
+        print(
+            f"{index}. "
+            f"{row['name']}: "
+            f"{row['quantity']:,}"
+        )
 
 
 if __name__ == "__main__":
