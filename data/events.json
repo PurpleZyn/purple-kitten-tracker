@@ -24,6 +24,16 @@
     "sender_id": "3673710",
     "timestamp": 1768669657
   },
+  "1BeKfHkpggheRj1uZnam": {
+    "quantity": 3,
+    "sender_id": "3786872",
+    "timestamp": 1758294984
+  },
+  "2ia61pwTQjxWoUNAAwDX": {
+    "quantity": 80,
+    "sender_id": "3786872",
+    "timestamp": 1751949649
+  },
   "30kU2Xf8Bq4L3xt9Any4": {
     "quantity": 200,
     "sender_id": "3786872",
@@ -39,15 +49,50 @@
     "sender_id": "3673710",
     "timestamp": 1769320696
   },
+  "4K3N38Wy6w99DBMwzJdM": {
+    "quantity": 2,
+    "sender_id": "3896782",
+    "timestamp": 1760275831
+  },
+  "4K8GNMx08TrYXR0Nhj1Z": {
+    "quantity": 2,
+    "sender_id": "3832806",
+    "timestamp": 1759960193
+  },
+  "4Rr16Ay8KjAMtVQ1mbqI": {
+    "quantity": 10,
+    "sender_id": "3832806",
+    "timestamp": 1760237179
+  },
   "4qknEN4Q0c1OAGtrRooC": {
     "quantity": 100,
     "sender_id": "3832806",
     "timestamp": 1780611732
   },
+  "4zQwd28qYQaNkAiarBsR": {
+    "quantity": 100,
+    "sender_id": "3673710",
+    "timestamp": 1760411755
+  },
+  "56zO5b3ZNhg0XOzEXw5L": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1756963770
+  },
+  "591Tt4cybmvXQITuQ3hb": {
+    "quantity": 2,
+    "sender_id": "3673710",
+    "timestamp": 1764214990
+  },
   "5A3NvsJhbFvwRMXkFUgW": {
     "quantity": 545,
     "sender_id": "3786872",
     "timestamp": 1768712261
+  },
+  "5C2o8rAgIe0usKNs0blV": {
+    "quantity": 81,
+    "sender_id": "3786872",
+    "timestamp": 1753101562
   },
   "5O1wJcw1Ngx5diFuaXZu": {
     "quantity": 100,
@@ -79,6 +124,11 @@
     "sender_id": "3896782",
     "timestamp": 1772099585
   },
+  "6UJk6kAIIDVkEmtaciUG": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1759290404
+  },
   "756rOrF1MZKvaJ1rM0T8": {
     "quantity": 600,
     "sender_id": "3673710",
@@ -93,6 +143,21 @@
     "quantity": 3,
     "sender_id": "3027341",
     "timestamp": 1784348306
+  },
+  "7Ij6PUIOAFkLXrPCoAr2": {
+    "quantity": 90,
+    "sender_id": "3786872",
+    "timestamp": 1759545099
+  },
+  "7RKcV5dDprk74pBq7btE": {
+    "quantity": 2,
+    "sender_id": "3673710",
+    "timestamp": 1767076011
+  },
+  "7WF4IqnE7Dx6q9HmlYbS": {
+    "quantity": 30,
+    "sender_id": "3786872",
+    "timestamp": 1754777214
   },
   "7er9GScRdGdHlMiyYo4u": {
     "quantity": 100,
@@ -109,6 +174,11 @@
     "sender_id": "3786872",
     "timestamp": 1768109633
   },
+  "7ktf1z8ZigN1elGJRNtA": {
+    "quantity": 52,
+    "sender_id": "3786872",
+    "timestamp": 1760989864
+  },
   "7tdL8sMDNmmsbJ0ppEsa": {
     "quantity": 100,
     "sender_id": "2892431",
@@ -118,6 +188,11 @@
     "quantity": 200,
     "sender_id": "3673710",
     "timestamp": 1770690551
+  },
+  "9Gm9jr8VVY1CE1rIa1gc": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1751471914
   },
   "9PYDJlyEQTmGtwwCj9P4": {
     "quantity": 51,
@@ -134,10 +209,25 @@
     "sender_id": "3832806",
     "timestamp": 1780693328
   },
+  "Av0JScBE63Q5HMGMSUDO": {
+    "quantity": 10,
+    "sender_id": "3832806",
+    "timestamp": 1762198214
+  },
   "BGetosCZTgo0TR7NjKwO": {
     "quantity": 1,
     "sender_id": "3896816",
     "timestamp": 1779267529
+  },
+  "BQQ1zKFEFcFptUBk3Ru4": {
+    "quantity": 100,
+    "sender_id": "3673710",
+    "timestamp": 1762466811
+  },
+  "BdCUBCYpHr1GWdrngMGZ": {
+    "quantity": 50,
+    "sender_id": "3786872",
+    "timestamp": 1761309868
   },
   "CGqvhs8gJw8lVBJy8AKe": {
     "quantity": 98,
@@ -149,15 +239,40 @@
     "sender_id": "3673710",
     "timestamp": 1773020269
   },
+  "CWC4xnQvLBSmsux8QuY4": {
+    "quantity": 2,
+    "sender_id": "3832806",
+    "timestamp": 1759290450
+  },
+  "ClhTCObO5WgwAzSEfe3O": {
+    "quantity": 100,
+    "sender_id": "3673710",
+    "timestamp": 1764293472
+  },
   "DD4CQ15euaqCVC84ysYt": {
     "quantity": 100,
     "sender_id": "3866295",
     "timestamp": 1788238470
   },
+  "DFGlpnwcD58qU9PT2VvE": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1756189288
+  },
+  "DO61trnsnbGx4pNDaAfj": {
+    "quantity": 50,
+    "sender_id": "3786872",
+    "timestamp": 1754876934
+  },
   "DQQjl6ry5s0uAzmPJwiQ": {
     "quantity": 401,
     "sender_id": "3673710",
     "timestamp": 1784424417
+  },
+  "DSLZyhlBTskKD1NSiSsO": {
+    "quantity": 102,
+    "sender_id": "3786872",
+    "timestamp": 1763962693
   },
   "DXKW0tjaERTmvGoVRI0z": {
     "quantity": 100,
@@ -169,20 +284,45 @@
     "sender_id": "3832806",
     "timestamp": 1785959192
   },
+  "DsdlydJfBIfMguhTlJRM": {
+    "quantity": 400,
+    "sender_id": "3673710",
+    "timestamp": 1760666673
+  },
   "Dy1LHhBzUU5wNI6zhCg6": {
     "quantity": 807,
     "sender_id": "3786872",
     "timestamp": 1768590081
+  },
+  "EcYFOZKAWFCpo8Kns1Fw": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1752214381
   },
   "EjiRn6UYemvdqzG861Di": {
     "quantity": 100,
     "sender_id": "3786872",
     "timestamp": 1772118913
   },
+  "ExlI4OJbk93DJrtZnB1R": {
+    "quantity": 10,
+    "sender_id": "3832806",
+    "timestamp": 1762128763
+  },
   "FFdE9FZpNKTMKRB8gWDt": {
     "quantity": 301,
     "sender_id": "3673710",
     "timestamp": 1785536709
+  },
+  "FG3HhhNDpXHp0YjtaWM8": {
+    "quantity": 190,
+    "sender_id": "3786872",
+    "timestamp": 1751635443
+  },
+  "FJAhSBNjl5KaAXv4dAn2": {
+    "quantity": 50,
+    "sender_id": "3673710",
+    "timestamp": 1751089228
   },
   "FPKM4odb8pbE4t9Ohb0T": {
     "quantity": 1,
@@ -194,20 +334,55 @@
     "sender_id": "3936739",
     "timestamp": 1779203585
   },
+  "Flcfelk6GvnPoHn6BTLb": {
+    "quantity": 50,
+    "sender_id": "3786872",
+    "timestamp": 1752418002
+  },
+  "GOWxA6K0jngsDA5B897I": {
+    "quantity": 50,
+    "sender_id": "3786872",
+    "timestamp": 1761069683
+  },
   "GOn7IVeQCE7NaiwHz00S": {
     "quantity": 99,
     "sender_id": "3786872",
     "timestamp": 1786944690
+  },
+  "Gg9K1oU3MMPImS1rqrpy": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1749867428
   },
   "H0Hq6bcRA56xjOXACjU9": {
     "quantity": 1,
     "sender_id": "3673710",
     "timestamp": 1776731281
   },
+  "HBvLPZa5PP7XmkQinpCL": {
+    "quantity": 10,
+    "sender_id": "3832806",
+    "timestamp": 1760141857
+  },
+  "Hen2I4zv4L4TZ8SyDubU": {
+    "quantity": 70,
+    "sender_id": "3786872",
+    "timestamp": 1761446368
+  },
   "HveEdBKLu1Eyk7dArvRF": {
     "quantity": 300,
     "sender_id": "3786872",
     "timestamp": 1777955323
+  },
+  "HwDAr7VZVSOoKD3yzXpw": {
+    "quantity": 10,
+    "sender_id": "3786872",
+    "timestamp": 1753416699
+  },
+  "HycdQyvJyYEnt7qym9c0": {
+    "quantity": 26,
+    "sender_id": "3695656",
+    "timestamp": 1765381209
   },
   "I1UIGeAOCtot0fEJnRej": {
     "quantity": 264,
@@ -219,10 +394,35 @@
     "sender_id": "3786872",
     "timestamp": 1773358485
   },
+  "I7Go6n5iIgNdDUctZFuM": {
+    "quantity": 80,
+    "sender_id": "3673710",
+    "timestamp": 1759537478
+  },
+  "I8QY3vEAHrEKCWA8oCEj": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1750306616
+  },
   "IYkC6gqWugGQVNEyynN3": {
     "quantity": 100,
     "sender_id": "3786872",
     "timestamp": 1787433983
+  },
+  "Ic05MtNNZV9ACvA6ieuj": {
+    "quantity": 100,
+    "sender_id": "3673710",
+    "timestamp": 1760291192
+  },
+  "IiCLJHZhPiha61dTMHg1": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1751115969
+  },
+  "KXFnAIQGRoGpcheFZUA8": {
+    "quantity": 90,
+    "sender_id": "3673710",
+    "timestamp": 1762361547
   },
   "M9xY7NKBCipdptodm510": {
     "quantity": 100,
@@ -239,6 +439,11 @@
     "sender_id": "3786872",
     "timestamp": 1769026608
   },
+  "MmMl9vvbu9dllFCCKLYG": {
+    "quantity": 149,
+    "sender_id": "3673710",
+    "timestamp": 1751327549
+  },
   "N5XJGKzEdrQDbaki2gTA": {
     "quantity": 50,
     "sender_id": "3786872",
@@ -254,30 +459,85 @@
     "sender_id": "3786872",
     "timestamp": 1781461216
   },
+  "NZf0YBLIBcLxTUi4gwee": {
+    "quantity": 60,
+    "sender_id": "3786872",
+    "timestamp": 1752670368
+  },
+  "NmcXvPIbuANImybrkAsn": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1750910082
+  },
+  "Ntf2Drc9QLCmZziGJeie": {
+    "quantity": 88,
+    "sender_id": "3786872",
+    "timestamp": 1761623630
+  },
+  "O0wrFO2G3aXeKcALE6Ef": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1763348582
+  },
+  "OAQ6XU5KBAn4mgyib0hk": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1757726157
+  },
   "OJWkVyidiZWFDJotR3zC": {
     "quantity": 50,
     "sender_id": "3695656",
     "timestamp": 1776177346
+  },
+  "PK790fTGlamiRyS2b2oa": {
+    "quantity": 10,
+    "sender_id": "3786872",
+    "timestamp": 1751304060
+  },
+  "PLWnAr0J5cAXhHwNhSEq": {
+    "quantity": 50,
+    "sender_id": "3832806",
+    "timestamp": 1759960384
   },
   "PZ0pfIteofnq9nAQOUjU": {
     "quantity": 100,
     "sender_id": "3673710",
     "timestamp": 1773637209
   },
+  "PgLgU2QL25aKNKmWMf48": {
+    "quantity": 25,
+    "sender_id": "3896782",
+    "timestamp": 1763844561
+  },
   "PplyZCt3fiTNk64Wm85n": {
     "quantity": 156,
     "sender_id": "3786872",
     "timestamp": 1767502924
+  },
+  "PwfCk2swrW2nKVvdREWU": {
+    "quantity": 30,
+    "sender_id": "3673710",
+    "timestamp": 1761276808
   },
   "Q2pQ0mZ6cPtBqwHVIAJY": {
     "quantity": 1671,
     "sender_id": "3786872",
     "timestamp": 1770671213
   },
+  "Q4nAwFDSESfHKDDXESww": {
+    "quantity": 1307,
+    "sender_id": "3786872",
+    "timestamp": 1765006079
+  },
   "QDH25gtP1u40rztXZDJ0": {
     "quantity": 100,
     "sender_id": "3673710",
     "timestamp": 1772681916
+  },
+  "QMx9bP4kuQl0ZajCBgvk": {
+    "quantity": 17,
+    "sender_id": "3786872",
+    "timestamp": 1760160557
   },
   "QlhTnWH9QkItjITzm290": {
     "quantity": 10000,
@@ -288,6 +548,11 @@
     "quantity": 452,
     "sender_id": "3786872",
     "timestamp": 1768176585
+  },
+  "RxZDUqj1Td0L0FGIHPof": {
+    "quantity": 107,
+    "sender_id": "3673710",
+    "timestamp": 1766905118
   },
   "SH2uqovGLBMBGf5sQqcV": {
     "quantity": 10000,
@@ -314,6 +579,11 @@
     "sender_id": "3786872",
     "timestamp": 1772082513
   },
+  "U9fkcDiWtklwO6I0kM9Z": {
+    "quantity": 8,
+    "sender_id": "3786872",
+    "timestamp": 1762374986
+  },
   "UAjJXZHCMeYTyDMnfqlY": {
     "quantity": 100,
     "sender_id": "3786872",
@@ -323,6 +593,16 @@
     "quantity": 10000,
     "sender_id": "3673710",
     "timestamp": 1772120231
+  },
+  "VMHklle54iiRy5kNzK4T": {
+    "quantity": 3,
+    "sender_id": "3673710",
+    "timestamp": 1762803256
+  },
+  "VQNNQlVQLNd45CqEvkul": {
+    "quantity": 122,
+    "sender_id": "3786872",
+    "timestamp": 1749701950
   },
   "VT4tfdNoQyFaH6tBjDC3": {
     "quantity": 100,
@@ -334,6 +614,11 @@
     "sender_id": "3673710",
     "timestamp": 1781117762
   },
+  "WbqLZZHntAkcXP4dDTHw": {
+    "quantity": 114,
+    "sender_id": "3786872",
+    "timestamp": 1759290548
+  },
   "WjOcJdiR2d37eF4jvwsT": {
     "quantity": 305,
     "sender_id": "3786872",
@@ -344,6 +629,11 @@
     "sender_id": "2892431",
     "timestamp": 1770658751
   },
+  "XC9gEZqNS9i4jgMvHm0M": {
+    "quantity": 1,
+    "sender_id": "3832806",
+    "timestamp": 1763793052
+  },
   "XHPeBAuprfpjOxBmJSMm": {
     "quantity": 100,
     "sender_id": "3786872",
@@ -353,6 +643,21 @@
     "quantity": 1,
     "sender_id": "3673710",
     "timestamp": 1775837403
+  },
+  "XQIIz2CWFC3BaILlADu2": {
+    "quantity": 7,
+    "sender_id": "3786872",
+    "timestamp": 1762303433
+  },
+  "XTV7F9xQaT8UjUCqVjxV": {
+    "quantity": 41,
+    "sender_id": "3786872",
+    "timestamp": 1760664680
+  },
+  "Y8xQZTljkRR2PkkBDP5V": {
+    "quantity": 100,
+    "sender_id": "3673710",
+    "timestamp": 1760058348
   },
   "YXy9HaPFr96tF3V6HPVb": {
     "quantity": 988,
@@ -374,6 +679,16 @@
     "sender_id": "3673710",
     "timestamp": 1772120283
   },
+  "ZDEjWYLU0RoPskwLV37m": {
+    "quantity": 1389,
+    "sender_id": "3786872",
+    "timestamp": 1764802834
+  },
+  "ZH1H2PsOV4zsBjI5ow7r": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1750641293
+  },
   "ZU95gg4arwkQD7MjOZtg": {
     "quantity": 10000,
     "sender_id": "3673710",
@@ -384,10 +699,35 @@
     "sender_id": "3832806",
     "timestamp": 1775081423
   },
+  "ZiinEgD8QacND3eJoImB": {
+    "quantity": 104,
+    "sender_id": "3786872",
+    "timestamp": 1766297186
+  },
+  "a0DD2Y7yxlt6NjK9e7bA": {
+    "quantity": 90,
+    "sender_id": "3673710",
+    "timestamp": 1761326927
+  },
+  "a9OUrM2ff0qyGTK0YfrJ": {
+    "quantity": 199,
+    "sender_id": "3673710",
+    "timestamp": 1759346423
+  },
   "abGlzhR1qVYgtp6uApIf": {
     "quantity": 355,
     "sender_id": "3786872",
     "timestamp": 1767842527
+  },
+  "aei1eSttGFsDPxK5cmhG": {
+    "quantity": 1084,
+    "sender_id": "3786872",
+    "timestamp": 1767450656
+  },
+  "bBXh2cMpfO9wWz33hvqt": {
+    "quantity": 100,
+    "sender_id": "3896782",
+    "timestamp": 1759290820
   },
   "bEOiKLnAR0ZSjowGCGhI": {
     "quantity": 100,
@@ -414,6 +754,16 @@
     "sender_id": "3832806",
     "timestamp": 1784316179
   },
+  "dJYqNtzMeUr1qmyCzkRH": {
+    "quantity": 1,
+    "sender_id": "3936739",
+    "timestamp": 1759528973
+  },
+  "dMZPiyb6PyGnXJFej8nn": {
+    "quantity": 14,
+    "sender_id": "3786872",
+    "timestamp": 1753485319
+  },
   "dNEIOCmUE15JFBAj1ZBK": {
     "quantity": 200,
     "sender_id": "3786872",
@@ -429,6 +779,21 @@
     "sender_id": "3673710",
     "timestamp": 1772334938
   },
+  "dsfthvF86pITYvqyHUCj": {
+    "quantity": 2286,
+    "sender_id": "3786872",
+    "timestamp": 1766456139
+  },
+  "e8V2coXCH8i4b0KZPrKC": {
+    "quantity": 100,
+    "sender_id": "3673710",
+    "timestamp": 1760982688
+  },
+  "eDQYJa8u8PkntvU8FDdF": {
+    "quantity": 1000,
+    "sender_id": "3751312",
+    "timestamp": 1764932285
+  },
   "eT3Rfxy78h9qniyx2lBK": {
     "quantity": 200,
     "sender_id": "3673710",
@@ -439,20 +804,55 @@
     "sender_id": "3832806",
     "timestamp": 1782929459
   },
+  "eij5qbAdowPqae1l2HAI": {
+    "quantity": 101,
+    "sender_id": "3786872",
+    "timestamp": 1762750168
+  },
   "fCZySmKIPueH32v0DOkf": {
     "quantity": 6,
     "sender_id": "3832806",
     "timestamp": 1784581473
+  },
+  "fOap71OklI20k9JJtvQn": {
+    "quantity": 16,
+    "sender_id": "3786872",
+    "timestamp": 1766973016
+  },
+  "fdjD2b7kINVZ1v1fF3lH": {
+    "quantity": 70,
+    "sender_id": "3786872",
+    "timestamp": 1761184632
+  },
+  "gLPggrhsGkiuPVer9rFg": {
+    "quantity": 50,
+    "sender_id": "3832806",
+    "timestamp": 1764608281
   },
   "gSDC6piT9klbCklxrGgZ": {
     "quantity": 3824,
     "sender_id": "3863003",
     "timestamp": 1772421028
   },
+  "hA68VwQtfNpLoPPITHEL": {
+    "quantity": 388,
+    "sender_id": "3673710",
+    "timestamp": 1760732450
+  },
+  "heCYJq79EeaSFnkv5AAo": {
+    "quantity": 2047,
+    "sender_id": "3896782",
+    "timestamp": 1766913723
+  },
   "htoF6MXDnFswPwQTZplM": {
     "quantity": 200,
     "sender_id": "3673710",
     "timestamp": 1777254023
+  },
+  "htqXhSRMy2XM1aGSK2LU": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1762148037
   },
   "iA2DrFxi1Q9w2wE9Sw7i": {
     "quantity": 401,
@@ -464,6 +864,16 @@
     "sender_id": "3673710",
     "timestamp": 1772119154
   },
+  "iIuqEWb5ahCCED3SoJe1": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1750010618
+  },
+  "ijtuJSE2ZqKlyVOE3xgz": {
+    "quantity": 200,
+    "sender_id": "3673710",
+    "timestamp": 1759495026
+  },
   "imY9oGkxUDL4a2Fk7pDZ": {
     "quantity": 1,
     "sender_id": "3673710",
@@ -474,25 +884,80 @@
     "sender_id": "3786872",
     "timestamp": 1785030455
   },
+  "jS5Poc0sp99flZMIA4iH": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1762232300
+  },
   "k5O9NPmTtZPsGBNx6B0r": {
     "quantity": 100,
     "sender_id": "3832806",
     "timestamp": 1774995959
+  },
+  "kOL316AHD1gVwoxoLCaX": {
+    "quantity": 90,
+    "sender_id": "3786872",
+    "timestamp": 1759546869
+  },
+  "kQU5IDFzeGh7JaB7reVQ": {
+    "quantity": 301,
+    "sender_id": "3786872",
+    "timestamp": 1764972669
   },
   "kj5OnYiWPGdeYHlLGk7A": {
     "quantity": 100,
     "sender_id": "3673710",
     "timestamp": 1779051931
   },
+  "ktqxKZKZxrrCcIqEPN7a": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1759190062
+  },
+  "lYIXcN6LsJ6gJ9lYUV1S": {
+    "quantity": 1,
+    "sender_id": "3673710",
+    "timestamp": 1762144616
+  },
   "n3oimDdJWlR4UAxaKvbk": {
     "quantity": 100,
     "sender_id": "3734945",
     "timestamp": 1771946886
   },
+  "nBG31WVDzQeBMw19nznY": {
+    "quantity": 189,
+    "sender_id": "3786872",
+    "timestamp": 1766903533
+  },
+  "nKyVJXApW48VaqXOxQP2": {
+    "quantity": 100,
+    "sender_id": "3786872",
+    "timestamp": 1763697148
+  },
+  "oCHxX2WELIK9RT2jDkW4": {
+    "quantity": 1,
+    "sender_id": "3366423",
+    "timestamp": 1752511975
+  },
   "oCKZwHzhZr5eeNy0uZoS": {
     "quantity": 1402,
     "sender_id": "3673710",
     "timestamp": 1776299512
+  },
+  "oZKDAlCNuU9WP3MV0Hal": {
+    "quantity": 3,
+    "sender_id": "3786872",
+    "timestamp": 1750960884
+  },
+  "oeVaB0JMrgKAMv2A4BUH": {
+    "quantity": 105,
+    "sender_id": "3786872",
+    "timestamp": 1766381025
+  },
+  "oqqA2Qi7OWcsJNZ6bWu7": {
+    "quantity": 20,
+    "sender_id": "3832806",
+    "timestamp": 1762237528
   },
   "p3viVTiXgfG3ebiNAZTv": {
     "quantity": 10000,
@@ -503,6 +968,11 @@
     "quantity": 10000,
     "sender_id": "3673710",
     "timestamp": 1772117732
+  },
+  "q0EjhIHvYO2t6J4TtHqW": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1753164643
   },
   "qFeiHvYZ1lxeneE7PYAB": {
     "quantity": 286,
@@ -519,15 +989,45 @@
     "sender_id": "3673710",
     "timestamp": 1772119134
   },
+  "rSoXJZDe3xYRyYJp8ilI": {
+    "quantity": 1,
+    "sender_id": "3896782",
+    "timestamp": 1759546677
+  },
   "rU0uwbx28sjuBKOTrdDU": {
     "quantity": 844,
     "sender_id": "3786872",
     "timestamp": 1784001205
   },
+  "rzkEQORhZnZyzbbRi33D": {
+    "quantity": 702,
+    "sender_id": "3673710",
+    "timestamp": 1761515316
+  },
+  "sVeDnbUYaumuTxKhhq7G": {
+    "quantity": 2,
+    "sender_id": "3673710",
+    "timestamp": 1750986169
+  },
+  "smrXPw9mwmF4ksXG2kOS": {
+    "quantity": 1,
+    "sender_id": "3786872",
+    "timestamp": 1750535524
+  },
   "tNnC3O76DJRGSyNJ4VPa": {
     "quantity": 8,
     "sender_id": "3832806",
     "timestamp": 1784691549
+  },
+  "tPDCOKUq2RLq90tkV9Ll": {
+    "quantity": 483,
+    "sender_id": "3673710",
+    "timestamp": 1759913378
+  },
+  "tUbRRKGWN1uFCiNGa0kr": {
+    "quantity": 20,
+    "sender_id": "3832806",
+    "timestamp": 1762298717
   },
   "tc7GjyIyCqLMATQcGb7Y": {
     "quantity": 147,
@@ -539,10 +1039,25 @@
     "sender_id": "3673710",
     "timestamp": 1772120219
   },
+  "tyVg8eaO6ghzxrkmWG9m": {
+    "quantity": 794,
+    "sender_id": "3786872",
+    "timestamp": 1766673202
+  },
+  "u22VNsBpi4LzTBsIbjd1": {
+    "quantity": 1,
+    "sender_id": "3673710",
+    "timestamp": 1759346403
+  },
   "u9zxYPlfHtgCOLuwydq9": {
     "quantity": 10000,
     "sender_id": "3673710",
     "timestamp": 1772120254
+  },
+  "uv1EOSKiL5Gqu9zcWWM7": {
+    "quantity": 20,
+    "sender_id": "3786872",
+    "timestamp": 1755378877
   },
   "vAFwJQ398W3L1KCqzzdH": {
     "quantity": 11,
@@ -554,10 +1069,30 @@
     "sender_id": "3673710",
     "timestamp": 1772117836
   },
+  "wDJXZ8uz9Hpgljt9UnqO": {
+    "quantity": 453,
+    "sender_id": "3786872",
+    "timestamp": 1765945814
+  },
+  "wewXvrWK30DQcFixCJf5": {
+    "quantity": 500,
+    "sender_id": "3752237",
+    "timestamp": 1763698200
+  },
+  "wmQhC6pAeZbenSRj0Mg8": {
+    "quantity": 101,
+    "sender_id": "3786872",
+    "timestamp": 1763250001
+  },
   "wsFPOmaET6Y9A4r3mPVr": {
     "quantity": 407,
     "sender_id": "3673710",
     "timestamp": 1783298479
+  },
+  "xCWJiIEh8kGZIZ5O8jek": {
+    "quantity": 10,
+    "sender_id": "3832806",
+    "timestamp": 1762216703
   },
   "xKMkQNvETrv9HD8FP2in": {
     "quantity": 100,
@@ -573,6 +1108,11 @@
     "quantity": 513,
     "sender_id": "3786872",
     "timestamp": 1768802132
+  },
+  "xqwrFwWPX97uKTaJTBu3": {
+    "quantity": 25,
+    "sender_id": "3786872",
+    "timestamp": 1763647703
   },
   "xzxPC95dnm4CmIKKH4Ok": {
     "quantity": 200,
@@ -594,10 +1134,30 @@
     "sender_id": "3786872",
     "timestamp": 1787289703
   },
+  "yqCQ4TL4AFRxyU7DcrqF": {
+    "quantity": 60,
+    "sender_id": "3786872",
+    "timestamp": 1753279669
+  },
+  "yvJvg7O8vwhc3fYVVKR4": {
+    "quantity": 7817,
+    "sender_id": "3786872",
+    "timestamp": 1767160863
+  },
   "z5sUDYbchKCk8mNgDyuK": {
     "quantity": 2,
     "sender_id": "3673710",
     "timestamp": 1776723349
+  },
+  "zDLkDwZwY9AOyqGnpKJs": {
+    "quantity": 10,
+    "sender_id": "3832806",
+    "timestamp": 1760488448
+  },
+  "zhSInyGmvCbiH3Bi7XOr": {
+    "quantity": 265,
+    "sender_id": "3786872",
+    "timestamp": 1764976507
   },
   "zqOCG8IFwfOYkHZ1p5da": {
     "quantity": 10,
