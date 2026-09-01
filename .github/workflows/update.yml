@@ -1,0 +1,61 @@
+name: Update kitten leaderboard
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7 0 * * *"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: kitten-tracker
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out tracker
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install tracker requirements
+        run: pip install -r requirements.txt
+
+      - name: Pull Torn logs and rebuild image
+        env:
+          TORN_API_KEY: ${{ secrets.TORN_API_KEY }}
+        run: python tracker.py
+
+      - name: Save updated tracker data
+        run: |
+          git config user.name "kitten-tracker-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data docs
+          if git diff --cached --quiet; then
+            echo "No file changes to commit."
+          else
+            git commit -m "Update kitten leaderboard"
+            git push
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
