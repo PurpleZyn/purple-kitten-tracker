@@ -8,26 +8,30 @@
     "assets/rogue-assembly.webp"
   ],
   "history_title": "BATTLE HISTORY",
-  "footer_text": "MORE KITTENS \u2022 MORE CHAOS \u2022 SAME STORY",
+  "footer_text": "MORE KITTENS • MORE CHAOS • SAME STORY",
   "sections": [
     {
       "title": "ELIMINATION 2025",
       "banners": [
         "assets/elimination-2025-main.webp",
         "assets/elimination-2025-second-place.png"
-      ]
+      ],
+      "header_image": "assets/headers/header-elimination-2025.png"
     },
     {
       "title": "JLT SPRING 2026",
       "banners": [
         "assets/jlt-spring-2026.webp"
-      ]
+      ],
+      "header_image": "assets/headers/header-jlt-spring-2026.png"
     },
     {
       "title": "ELIMINATION 2026",
       "banners": [
         "assets/elimination-2026.jpg"
-      ]
+      ],
+      "header_image": "assets/headers/header-elimination-2026.png"
     }
-  ]
+  ],
+  "history_header_image": "assets/headers/header-battle-history.png"
 }

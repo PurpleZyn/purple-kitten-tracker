@@ -138,6 +138,37 @@ def make_background(width, height, source):
     return bg
 
 
+def trim_transparency(img):
+    """Crop unused transparent margins from decorative overlay art."""
+    if "A" not in img.getbands():
+        return img
+    bbox = img.getchannel("A").getbbox()
+    return img.crop(bbox) if bbox else img
+
+
+def prepare_header_asset(img, target_width):
+    """Trim and resize a transparent header overlay to a consistent width."""
+    img = trim_transparency(img)
+    return contain_width(img, target_width)
+
+
+def paste_header_asset(canvas, header, y):
+    """Blend a transparent header into the existing signature background."""
+    x = (canvas.width - header.width) // 2
+
+    # A soft purple bloom underneath helps the transparent artwork feel
+    # integrated into the page instead of pasted on top.
+    alpha = header.getchannel("A")
+    glow_alpha = alpha.filter(ImageFilter.GaussianBlur(9))
+    glow_alpha = glow_alpha.point(lambda p: int(p * 0.34))
+    glow = Image.new("RGBA", header.size, (205, 76, 255, 0))
+    glow.putalpha(glow_alpha)
+    canvas.alpha_composite(glow, (x, y))
+
+    canvas.alpha_composite(header, (x, y))
+    return y + header.height
+
+
 def make_banner_card(img, card_width):
     """
     Places a real banner inside a consistent dark-purple card.
@@ -291,11 +322,23 @@ def build_signature():
         for path in cfg.get("identity_banners", [])
     ]
 
+    history_header_path = cfg.get("history_header_image")
+    history_header = (
+        prepare_header_asset(open_image(history_header_path), 780)
+        if history_header_path
+        else None
+    )
+
     history = []
     for section in cfg.get("sections", []):
         history.append(
             {
                 "title": section["title"],
+                "header": (
+                    prepare_header_asset(open_image(section["header_image"]), 700)
+                    if section.get("header_image")
+                    else None
+                ),
                 "cards": [
                     make_banner_card(open_image(path), card_width)
                     for path in section.get("banners", [])
@@ -309,8 +352,8 @@ def build_signature():
     identity_gap = 20
     before_history = 34
     header_height = 62
-    after_header = 18
-    between_sections = 30
+    after_header = 10
+    between_sections = 22
     footer_space = 78
     bottom_gap = 30
 
@@ -321,10 +364,10 @@ def build_signature():
     for card in identity_cards:
         height += card.height + identity_gap
 
-    height += before_history + header_height + 26
+    height += before_history + (history_header.height if history_header else header_height) + 18
 
     for section in history:
-        height += header_height + after_header
+        height += (section["header"].height if section["header"] else header_height) + after_header
         for card in section["cards"]:
             height += card.height + normal_gap
         height += between_sections
@@ -364,16 +407,22 @@ def build_signature():
 
     y += before_history
 
-    y = draw_section_header(
-        canvas,
-        y,
-        cfg.get("history_title", "BATTLE HISTORY"),
-        wide=True,
-    )
-    y += 26
+    if history_header:
+        y = paste_header_asset(canvas, history_header, y)
+    else:
+        y = draw_section_header(
+            canvas,
+            y,
+            cfg.get("history_title", "BATTLE HISTORY"),
+            wide=True,
+        )
+    y += 18
 
     for section in history:
-        y = draw_section_header(canvas, y, section["title"], wide=False)
+        if section["header"]:
+            y = paste_header_asset(canvas, section["header"], y)
+        else:
+            y = draw_section_header(canvas, y, section["title"], wide=False)
         y += after_header
 
         for card in section["cards"]:
