@@ -31,12 +31,15 @@ jobs:
       - name: Install tracker requirements
         run: pip install -r requirements.txt
 
-      - name: Pull Torn logs and rebuild image
+      - name: Pull Torn logs and rebuild kitten image
         env:
           TORN_API_KEY: ${{ secrets.TORN_API_KEY }}
         run: python tracker.py
 
-      - name: Save updated tracker data
+      - name: Build full Torn signature
+        run: python build_signature.py
+
+      - name: Save updated tracker and signature
         run: |
           git config user.name "kitten-tracker-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -44,7 +47,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No file changes to commit."
           else
-            git commit -m "Update kitten leaderboard"
+            git commit -m "Update kitten tracker and signature"
             git push
           fi
 
