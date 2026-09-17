@@ -346,12 +346,12 @@ def build_signature():
             }
         )
 
-footer_art_path = cfg.get("footer_art")
-footer_art = (
-    prepare_header_asset(open_image(footer_art_path), 420)
-    if footer_art_path
-    else None
-)
+    footer_art_path = cfg.get("footer_art")
+    footer_art = (
+        prepare_header_asset(open_image(footer_art_path), 420)
+        if footer_art_path
+        else None
+    )
 
     # Layout sizes.
     top_gap = 28
@@ -379,10 +379,10 @@ footer_art = (
             height += card.height + normal_gap
         height += between_sections
 
-if footer_art:
-    height += footer_art.height + 8
+    if footer_art:
+        height += footer_art.height + 8
 
-height += footer_space + bottom_gap
+    height += footer_space + bottom_gap
 
     canvas = make_background(
         canvas_width,
@@ -441,13 +441,13 @@ height += footer_space + bottom_gap
 
         y += between_sections
 
-if footer_art:
-    y = paste_header_asset(canvas, footer_art, y)
-    y += 4
+    if footer_art:
+        y = paste_header_asset(canvas, footer_art, y)
+        y += 4
 
-footer_text = cfg.get("footer_text", "")
-y += 8
-draw_footer(canvas, y, footer_text)
+    footer_text = cfg.get("footer_text", "")
+    y += 8
+    draw_footer(canvas, y, footer_text)
 
     output_path = resolve_path(cfg.get("output", "docs/signature.png"))
     output_path.parent.mkdir(parents=True, exist_ok=True)
