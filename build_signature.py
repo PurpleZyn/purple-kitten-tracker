@@ -348,7 +348,7 @@ def build_signature():
 
     footer_art_path = cfg.get("footer_art")
     footer_art = (
-        prepare_header_asset(open_image(footer_art_path), 460)
+        prepare_header_asset(open_image(footer_art_path), 640)
         if footer_art_path
         else None
     )
