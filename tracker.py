@@ -16,6 +16,7 @@ CONFIG_PATH = ROOT / "config.json"
 EVENTS_PATH = DATA_DIR / "events.json"
 NAMES_PATH = DATA_DIR / "names.json"
 STATE_PATH = DATA_DIR / "state.json"
+OVERRIDES_PATH = DATA_DIR / "overrides.json"
 IMAGE_PATH = DOCS_DIR / "kittens.png"
 INDEX_PATH = DOCS_DIR / "index.html"
 TEMPLATE_PATH = ROOT / "leaderboard_template.png"
@@ -60,6 +61,49 @@ def load_config():
             "height": 600,
         },
     )
+
+
+def load_attribution_overrides():
+    """
+    Load optional leaderboard attribution overrides keyed by Torn log ID.
+
+    Raw Torn events remain untouched. Overrides only change who receives credit
+    when leaderboard totals are calculated. This keeps events.json as a true
+    record of the sender while allowing group gifts to be credited accurately.
+    """
+    raw = read_json(OVERRIDES_PATH, {})
+    by_event = {}
+
+    if not isinstance(raw, dict):
+        raise ValueError("data/overrides.json must contain a JSON object")
+
+    for override_id, override in raw.items():
+        if not isinstance(override, dict):
+            raise ValueError(f"Override {override_id!r} must be a JSON object")
+
+        name = str(override.get("name", "")).strip()
+        event_ids = override.get("event_ids", [])
+
+        if not name:
+            raise ValueError(f"Override {override_id!r} is missing a display name")
+        if not isinstance(event_ids, list):
+            raise ValueError(f"Override {override_id!r} event_ids must be a list")
+
+        for event_id in event_ids:
+            event_id = str(event_id).strip()
+            if not event_id:
+                continue
+            if event_id in by_event:
+                other = by_event[event_id]["id"]
+                raise ValueError(
+                    f"Torn log {event_id} appears in both {other!r} and {override_id!r}"
+                )
+            by_event[event_id] = {
+                "id": str(override_id),
+                "name": name,
+            }
+
+    return by_event
 
 
 class TornClient:
@@ -495,18 +539,33 @@ def resolve_missing_names(client, events, names):
             names[sender_id] = f"Player {sender_id}"
 
 
-def donor_totals(events, names):
+def donor_totals(events, names, attribution_overrides=None):
+    """Build leaderboard totals, applying optional per-log attribution overrides."""
+    attribution_overrides = attribution_overrides or {}
     totals = defaultdict(int)
-    for event in events.values():
-        totals[event["sender_id"]] += int(event["quantity"])
+    display_names = {}
+
+    for event_id, event in events.items():
+        override = attribution_overrides.get(event_id)
+
+        if override:
+            contributor_id = f"override:{override['id']}"
+            display_names[contributor_id] = override["name"]
+        else:
+            contributor_id = event["sender_id"]
+
+        totals[contributor_id] += int(event["quantity"])
 
     rows = [
         {
-            "id": sender_id,
-            "name": names.get(sender_id, f"Player {sender_id}"),
+            "id": contributor_id,
+            "name": display_names.get(
+                contributor_id,
+                names.get(contributor_id, f"Player {contributor_id}"),
+            ),
             "quantity": qty,
         }
-        for sender_id, qty in totals.items()
+        for contributor_id, qty in totals.items()
     ]
     rows.sort(key=lambda x: (-x["quantity"], x["name"].lower()))
     return rows
@@ -888,6 +947,8 @@ def main():
         {},
     )
 
+    attribution_overrides = load_attribution_overrides()
+
     client = TornClient(api_key)
 
     run_started = int(time.time())
@@ -909,7 +970,26 @@ def main():
     rows = donor_totals(
         events,
         names,
+        attribution_overrides,
     )
+
+    applied_override_events = sorted(
+        set(events).intersection(attribution_overrides)
+    )
+    missing_override_events = sorted(
+        set(attribution_overrides).difference(events)
+    )
+
+    if attribution_overrides:
+        print(
+            f"Attribution overrides applied: "
+            f"{len(applied_override_events)}/{len(attribution_overrides)} event(s)"
+        )
+        if missing_override_events:
+            print(
+                "WARNING: override log IDs not found in Torn history: "
+                + ", ".join(missing_override_events)
+            )
 
     total_kittens = sum(
         int(row["quantity"])
@@ -935,6 +1015,9 @@ def main():
 
         "unique_contributors":
             len(rows),
+
+        "attribution_overrides_applied":
+            len(applied_override_events),
 
         "history_complete":
             True,
